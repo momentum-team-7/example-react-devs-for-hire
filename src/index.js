@@ -1,17 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const App = () => {
+  const [developers] = useState(['Tatiana', 'Laura', 'Albany'])
+  return (
+    <main>
+      <h1>Developers for Hire!</h1>
+      {developers.map((dev) => (
+        <Developer name={dev} expertise="front-end developer" />
+      ))}
+    </main>
+  )
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const Developer = (props) => {
+  const { name, expertise } = props
+  return (
+    <div className="dev">
+      <h2>{name}</h2>
+      <p>{expertise}</p>
+    </div>
+  )
+}
+
+ReactDOM.render(<App />, document.querySelector('#root'))
