@@ -2,12 +2,12 @@ import { useState } from 'react'
 import './styles/App.css'
 
 export const App = () => {
-  const [developers] = useState([
+  const [developers, setDevelopers] = useState([
     {
       name: 'Tatiana',
       expertise: 'front-end developer',
       availableForHire: true,
-      favorited: true,
+      favorited: false,
     },
     {
       name: 'Albany',
@@ -29,6 +29,16 @@ export const App = () => {
     },
   ])
 
+  const handleFavorite = (name, favorited) => {
+    const newDevs = developers.map((dev) => {
+      if (dev.name === name) {
+        return { ...dev, favorited }
+      }
+      return dev
+    })
+    setDevelopers(newDevs)
+  }
+
   return (
     <main>
       <h1>Developers for Hire!</h1>
@@ -40,6 +50,7 @@ export const App = () => {
               expertise={dev.expertise}
               key={idx}
               favorited={dev.favorited}
+              handleFavorite={handleFavorite}
             />
           )
         } else {
@@ -51,11 +62,14 @@ export const App = () => {
 }
 
 const Developer = (props) => {
-  const { name, expertise, favorited } = props
+  const { name, expertise, favorited, handleFavorite } = props
   return (
     <div className={favorited ? 'dev dev--favorited' : 'dev'}>
       <h2>{name}</h2>
       <p>{expertise}</p>
+      <button onClick={() => handleFavorite(name, !favorited)}>
+        {favorited ? 'unfav 💔' : 'fav ❤️'}
+      </button>
     </div>
   )
 }
