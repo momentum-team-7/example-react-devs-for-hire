@@ -7,21 +7,25 @@ export const App = () => {
       name: 'Tatiana',
       expertise: 'front-end developer',
       availableForHire: true,
+      favorited: true,
     },
     {
       name: 'Albany',
       expertise: 'front-end developer',
       availableForHire: false,
+      favorited: false,
     },
     {
       name: 'Laura',
       expertise: 'front-end developer',
       availableForHire: true,
+      favorited: false,
     },
     {
       name: 'Pearl',
       expertise: 'back-end developer',
       availableForHire: false,
+      favorited: false,
     },
   ])
 
@@ -31,7 +35,12 @@ export const App = () => {
       {developers.map((dev, idx) => {
         if (dev.availableForHire) {
           return (
-            <Developer name={dev.name} expertise={dev.expertise} key={idx} />
+            <Developer
+              name={dev.name}
+              expertise={dev.expertise}
+              key={idx}
+              favorited={dev.favorited}
+            />
           )
         } else {
           return null
@@ -42,9 +51,9 @@ export const App = () => {
 }
 
 const Developer = (props) => {
-  const { name, expertise } = props
+  const { name, expertise, favorited } = props
   return (
-    <div className="dev">
+    <div className={favorited ? 'dev dev--favorited' : 'dev'}>
       <h2>{name}</h2>
       <p>{expertise}</p>
     </div>

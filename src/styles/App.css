@@ -10,3 +10,7 @@ main {
   padding: 5px;
   border-radius: 4px;
 }
+
+.dev--favorited {
+  background-color: #a8dadc;
+}
