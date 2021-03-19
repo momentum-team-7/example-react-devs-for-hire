@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './styles/App.css'
 
 export const App = () => {
   const [developers] = useState(['Tatiana', 'Laura', 'Albany'])
