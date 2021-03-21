@@ -63,13 +63,30 @@ export const App = () => {
 
 const Developer = (props) => {
   const { name, expertise, favorited, handleFavorite } = props
+  const [show, setShow] = useState(false)
   return (
     <div className={favorited ? 'dev dev--favorited' : 'dev'}>
       <h2>{name}</h2>
-      <p>{expertise}</p>
-      <button onClick={() => handleFavorite(name, !favorited)}>
-        {favorited ? 'unfav 💔' : 'fav ❤️'}
-      </button>
+      {show ? (
+        <div>
+          <button className="btn-sm controls" onClick={() => setShow(false)}>
+            Hide expertise
+          </button>
+          <p>{expertise}</p>
+        </div>
+      ) : (
+        <button className="btn-sm controls" onClick={() => setShow(true)}>
+          Show expertise
+        </button>
+      )}
+      <div>
+        <button
+          className="fav-btn"
+          onClick={() => handleFavorite(name, !favorited)}
+        >
+          {favorited ? '💔' : '❤️'}
+        </button>
+      </div>
     </div>
   )
 }

@@ -14,3 +14,14 @@ main {
 .dev--favorited {
   background-color: #a8dadc;
 }
+
+.fav-btn {
+  background-color: #1d3557;
+}
+.controls {
+  background-color: #457b9d;
+}
+
+.btn-sm {
+  font-size: 12px;
+}
