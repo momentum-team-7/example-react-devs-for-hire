@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './styles/App.css'
+import Developer from './components/Developer'
 
 export const App = () => {
   const [developers, setDevelopers] = useState([
@@ -42,51 +43,19 @@ export const App = () => {
   return (
     <main>
       <h1>Developers for Hire!</h1>
-      {developers.map((dev, idx) => {
-        if (dev.availableForHire) {
+      {developers
+        .filter((dev) => dev.availableForHire)
+        .map((dev) => {
           return (
             <Developer
               name={dev.name}
               expertise={dev.expertise}
-              key={idx}
+              key={dev.name}
               favorited={dev.favorited}
               handleFavorite={handleFavorite}
             />
           )
-        } else {
-          return null
-        }
-      })}
+        })}
     </main>
-  )
-}
-
-const Developer = (props) => {
-  const { name, expertise, favorited, handleFavorite } = props
-  const [show, setShow] = useState(false)
-  return (
-    <div className={favorited ? 'dev dev--favorited' : 'dev'}>
-      <h2>{name}</h2>
-      {show ? (
-        <div>
-          <button className="btn-sm controls" onClick={() => setShow(false)}>
-            Hide expertise
-          </button>
-          <p>{expertise}</p>
-        </div>
-      ) : (
-        <button className="btn-sm controls" onClick={() => setShow(true)}>
-          Show expertise
-        </button>
-      )}
-      <div>
-        <button
-          className="fav-btn"
-          onClick={() => handleFavorite(name, !favorited)}
-        >
-          {favorited ? '💔' : '❤️'}
-        </button>
-      </div>
-    </div>
   )
 }
