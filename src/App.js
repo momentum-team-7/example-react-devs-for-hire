@@ -1,34 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './styles/App.css'
 import Developer from './components/Developer'
+import { getGitHubOrgMemberData } from './api'
 
 export const App = () => {
-  const [developers, setDevelopers] = useState([
-    {
-      name: 'Tatiana',
-      expertise: 'front-end developer',
-      availableForHire: true,
-      favorited: false,
-    },
-    {
-      name: 'Albany',
-      expertise: 'front-end developer',
-      availableForHire: false,
-      favorited: false,
-    },
-    {
-      name: 'Laura',
-      expertise: 'front-end developer',
-      availableForHire: true,
-      favorited: false,
-    },
-    {
-      name: 'Pearl',
-      expertise: 'back-end developer',
-      availableForHire: false,
-      favorited: false,
-    },
-  ])
+  const [developers, setDevelopers] = useState([])
+
+  useEffect(() => {
+    getGitHubOrgMemberData().then((data) => {
+      setDevelopers(data.data)
+    })
+  }, [])
 
   const handleFavorite = (name, favorited) => {
     const newDevs = developers.map((dev) => {
@@ -44,13 +26,12 @@ export const App = () => {
     <main>
       <h1>Developers for Hire!</h1>
       {developers
-        .filter((dev) => dev.availableForHire)
+        .filter((dev) => !['amygori', 'jeanetteobr'].includes(dev.login))
         .map((dev) => {
           return (
             <Developer
-              name={dev.name}
-              expertise={dev.expertise}
-              key={dev.name}
+              name={dev.login}
+              key={dev.id}
               favorited={dev.favorited}
               handleFavorite={handleFavorite}
             />
